@@ -15,7 +15,6 @@ public class InnerPlayer : MonoBehaviour
     [SerializeField] private float cameraHorizontalMax;
     [SerializeField] private float sensivity;
     [SerializeField] private GameObject camera;
-    [SerializeField] private GameObject outerPlayer;
     private void OnEnable()
     {
     }
@@ -25,10 +24,6 @@ public class InnerPlayer : MonoBehaviour
     {
         InputKey();
         Rotate();
-        if (Input.GetKey(KeyCode.Q))
-        {
-            ExitCar();
-        }
     }
     void InputKey()
     {
@@ -44,10 +39,5 @@ public class InnerPlayer : MonoBehaviour
         cameraHorizontalAngle = Mathf.Clamp(cameraHorizontalAngle, cameraHorizontalMin, cameraHorizontalMax);
 
         camera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, cameraHorizontalAngle, 0);
-    }
-    private void ExitCar()
-    {
-        outerPlayer.SetActive(true);
-        gameObject.SetActive(false);
     }
 }

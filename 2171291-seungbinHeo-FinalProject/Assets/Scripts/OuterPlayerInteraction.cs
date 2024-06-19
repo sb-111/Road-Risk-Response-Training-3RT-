@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OuterPlayerInteraction : MonoBehaviour
 {
-    [SerializeField] private GameObject innerPlayer;
+    [SerializeField] private GameObject innerPlayer; // 교체할 플레이어
     [SerializeField] private Camera playerCamra;
     bool isCarNear = false;
     [SerializeField] private LayerMask interactableLayer;
@@ -12,12 +12,12 @@ public class OuterPlayerInteraction : MonoBehaviour
     private DoorInteraction currentDoor; // 현재 상호작용하는 문을 추적하기 위한 변수
     private void Update()
     {
-        Ray ray = new Ray(playerCamra.transform.position, playerCamra.transform.forward * 10f);
+        Ray ray = new Ray(playerCamra.transform.position, playerCamra.transform.forward * 20f);
         Debug.DrawRay(ray.origin, ray.direction, Color.red);
 
         if(isCarNear && Input.GetKey(KeyCode.E))
         {
-            OpenDoor();
+            ToggleDoor();
         }
         if (isCarNear)
         {
@@ -38,6 +38,10 @@ public class OuterPlayerInteraction : MonoBehaviour
         {
             ToggleTrunk();
         }
+        //if (Input.GetKeyDown(KeyCode.F1))
+        //{
+        //    GameManager.Instance.StartTimer();
+        //}
     }
   
     private void OnTriggerEnter(Collider other)
@@ -67,10 +71,10 @@ public class OuterPlayerInteraction : MonoBehaviour
         }
     }
 
-    private void OpenDoor()
+    private void ToggleDoor()
     {
         RaycastHit hit;
-        if(Physics.Raycast(playerCamra.transform.position, playerCamra.transform.forward, out hit, 10f, interactableLayer))
+        if(Physics.Raycast(playerCamra.transform.position, playerCamra.transform.forward, out hit, 20f, interactableLayer))
         {
             if (hit.transform.CompareTag("Door"))
             {
@@ -93,7 +97,7 @@ public class OuterPlayerInteraction : MonoBehaviour
     private void ToggleTrunk()
     {
         RaycastHit hit;
-        if (Physics.Raycast(playerCamra.transform.position, playerCamra.transform.forward, out hit, 10f, interactableLayer))
+        if (Physics.Raycast(playerCamra.transform.position, playerCamra.transform.forward, out hit, 20f, interactableLayer))
         {
             if (hit.transform.CompareTag("Trunk"))
             {

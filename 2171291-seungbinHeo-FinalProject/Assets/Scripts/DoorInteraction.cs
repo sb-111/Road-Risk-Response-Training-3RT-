@@ -13,7 +13,6 @@ public class DoorInteraction : MonoBehaviour
     private Vector3 rotDir;
     private Quaternion openRotation;
     private Quaternion closeRotation;
-    // Start is called before the first frame update
     void Start()
     {
         switch (axis)
@@ -34,11 +33,6 @@ public class DoorInteraction : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void ToggleDoor()
     {
         isOpen = !isOpen;
