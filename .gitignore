@@ -70,3 +70,17 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+**/Assets/_TerrainAutoUpgrade
+**/Assets/Car Assets/
+**/Assets/CS - Signs Free/
+**/Assets/Dark UI/
+**/Assets/KajamansRoads/
+**/Assets/mountain-race-track/
+**/Assets/sample_racer/
+**/Assets/Simple Garage/
+**/Assets/small_town_america/
+**/Assets/TextMesh Pro/
+
+
+
