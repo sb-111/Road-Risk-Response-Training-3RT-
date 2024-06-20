@@ -10,8 +10,11 @@ public class OuterPlayer : MonoBehaviour
     float mouseY;
 
     [SerializeField] private float speed = 3f;
-    [SerializeField] private float sensivity = 20f;
+    public float slopeForce = 5f;
+    public float slopeForceRayLength = 1.5f;
+    private Rigidbody rb;
 
+    [SerializeField] private float sensivity = 20f;
     public GameObject camera;
     private float cameraVerticalAngle = 0f; // 카메라의 수직 회전 각도 추적
     [SerializeField] private float cameraVerticalMin;
@@ -25,7 +28,7 @@ public class OuterPlayer : MonoBehaviour
     }
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -45,19 +48,38 @@ public class OuterPlayer : MonoBehaviour
     
     void Move()
     {
-        var moveVec = new Vector3(horizontal, 0, vertical);
-        transform.Translate(moveVec * speed * Time.deltaTime);
+        //var moveVec = new Vector3(horizontal, 0, vertical);
+        //transform.Translate(moveVec * speed * Time.deltaTime);
+
+        Vector3 movement = new Vector3(horizontal, 0, vertical).normalized * speed * Time.deltaTime;
+        rb.MovePosition(rb.position + movement);
+
+        if (OnSlope())
+        {
+            rb.AddForce(Vector3.down * slopeForce, ForceMode.Force);
+        }
     }
     void Rotate()
     {
         var rotVec = Vector3.up * mouseX;
         transform.Rotate(rotVec * sensivity * Time.deltaTime); // 플레이어 수평 회전
-
+        //transform.LookAt()
         // 카메라 수직 회전 처리
         cameraVerticalAngle -= mouseY * sensivity * Time.deltaTime;
         cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, cameraVerticalMin, cameraVerticalMax);
 
         camera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, 0, 0);
     }
-    
+    private bool OnSlope()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, slopeForceRayLength))
+        {
+            if (hit.normal != Vector3.up)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -5,8 +5,11 @@ using UnityEngine;
 public class InnerPlayerInteraction : MonoBehaviour
 {
     [SerializeField] private GameObject outerPlayer; // 교체할 플레이어
+    [SerializeField] private Transform exitPosition; // outerPlayer가 내릴 위치
+
     [SerializeField] private DoorInteraction doorInteraction; // 운전석 문으로 설정
     [SerializeField] private CarController carController; // 차 조종 스크립트
+    
     private void OnEnable()
     {
         // Inner Player가 활성화되면 차에 rigidbody 부착해야 함.
@@ -26,16 +29,20 @@ public class InnerPlayerInteraction : MonoBehaviour
     }
     private void Update()
     {
+        // 차에서 하차
         if(Input.GetKeyDown(KeyCode.R) && doorInteraction.GetIsOpen())
         {
             ExitCar();
         }
+        // 문 상호작용
         HandleDoorInteraction();
+        // 차량 조종관련 상호작용
         HandleCarControls();
     }
     private void ExitCar()
     {
         // 차에서 하차 시 설정
+        outerPlayer.transform.position = exitPosition.position;
         outerPlayer.SetActive(true);
         gameObject.SetActive(false);
     }
@@ -52,22 +59,35 @@ public class InnerPlayerInteraction : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
+        // 직진
         if (vertical > 0)
         {
             carController.Accelerate(vertical);
         }
-        else if (vertical < 0)
-        {
-            carController.Brake();
-        }
+        //else if (vertical < 0)
+        //{
+        //    carController.Brake();
+        //}
 
         carController.Turn(horizontal);
 
+        // 브레이크
+        if (Input.GetKey(KeyCode.Space))
+        {
+            carController.Brake();
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            carController.StopBrake();
+        }
+
+        // 비상등
         if (Input.GetKeyDown(KeyCode.B))
         {
             carController.ToggleEmergencyLights();
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        // 사이드브레이크
+        if (Input.GetKeyDown(KeyCode.P))
         {
             carController.ToggleParkingBrake();
         }

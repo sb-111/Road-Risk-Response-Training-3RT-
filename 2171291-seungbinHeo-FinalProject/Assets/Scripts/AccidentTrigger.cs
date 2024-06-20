@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class UIFinal : MonoBehaviour
+public class AccidentTrigger : MonoBehaviour
 {
-    [SerializeField] private GameObject finalPanel;
-
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     // Update is called once per frame
@@ -17,8 +15,11 @@ public class UIFinal : MonoBehaviour
     {
         
     }
-    public void SetUI()
+    private void OnTriggerEnter(Collider other)
     {
+        if (other.transform.CompareTag("Car"))
+        {
 
+        }
     }
 }

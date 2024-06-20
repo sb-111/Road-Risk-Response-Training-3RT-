@@ -22,8 +22,7 @@ public class UITimer : MonoBehaviour
         if (remainTime <= 0f)
         {
             isTimerStart = false;
-            //isTimerEnd = true;
-            GameManager.Instance.FinishGame();
+            GameManager.Instance.EndSituation();
         }
         if (isTimerStart) // 타이머 작동 시작 시
         {
