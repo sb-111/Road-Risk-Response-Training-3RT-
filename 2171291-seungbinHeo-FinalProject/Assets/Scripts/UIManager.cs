@@ -103,7 +103,10 @@ public class UIManager : MonoBehaviour
     {
         situationSelectionPanel.SetActive(!situationSelectionPanel.activeSelf);
     }
-    
+    public void UpdateTaskList()
+    {
+        //taskScrollView.
+    }
     public void UpdateTaskStatus(int taskIndex, bool isCompleted)
     {
         Transform content = taskScrollView.transform.Find("Viewport/Content"); // 스크롤뷰 하위 Content 찾기

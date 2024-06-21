@@ -42,21 +42,28 @@ public class GameManager : MonoBehaviour
 
         }
     }
+    // 상황 시작 버튼 눌렀을 때
+    public void SelectSituation(Situation situation)
+    {
+        UIManager.Instance.ToggleSituationSelctionPanel(); // 상황 선택 패널 내리기
+        InitializeGame(); // 매니저 초기화
+        currentSituation = situation; // 상황 설정
+        isSituationStart = true; // 상황 시작 플래그 설정
+
+        //
+        //uiTimer?.gameObject.SetActive(true); // 타이머 활성
+        //uiTimer?.StartTimer(); // 타이머 시작
+
+        AddTasks(currentSituation); // 상황 줬다고 가정하고
+    }
     private void InitializeGame()
     {
         ScoreManager.Instance.ResetScore();
         TaskManager.Instance.ResetTasks();
     }
-   
-    // 상황 시작 버튼 눌렀을 때
-    public void SelectSituation(Situation situation)
+   public void AddTasks(Situation situation)
     {
-        InitializeGame(); // 매니저 초기화
-        currentSituation = situation; // 상황 설정
-        isSituationStart = true; // 상황 시작 플래그 설정
-        uiTimer?.gameObject.SetActive(true); // 타이머 활성
-        uiTimer?.StartTimer(); // 타이머 시작
-
+        TaskManager.Instance.AddTask("출발", "여행을 떠나보자");
     }
     // called by UITimer
     public void EndSituation()
