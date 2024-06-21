@@ -86,7 +86,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text feedbackText; // 피드백 텍스트
     [SerializeField] private Image[] feedbackStars; // 피드백 별
     [SerializeField] private Text feedbackScore; // 피드백 점수
+    [Header("조작법 패널 UI")]
+    [SerializeField] private GameObject maualPanel;
+    [Header("알림 패널 UI")]
+    [SerializeField] private GameObject notificationPanel;
+    [SerializeField] private Text notificationText;
 
+    [Header("짧은 패널 UI")]
+    [SerializeField] private GameObject shortPanelPrefab;
+    [Header("캔버스")]
+    [SerializeField] private GameObject canvas;
+
+    private NotificationType currentNotificationType = NotificationType.None;
     private void Awake()
     {
         if (Instance == null)
@@ -147,4 +158,44 @@ public class UIManager : MonoBehaviour
     {
         feedbackPanel.SetActive(false);
     }
+    public void ToggleManualPanel()
+    {
+
+    }
+    public void ToggleUINotification()
+    {
+        notificationPanel.SetActive(!notificationPanel.activeSelf);
+    }
+    public void SetNotification(string content, NotificationType type)
+    {
+        notificationText.text = content;
+        currentNotificationType = type;
+    }
+    public NotificationType GetCurrentNotificationType()
+    {
+        return currentNotificationType;
+    }
+    public void ClearNotificationType()
+    {
+        currentNotificationType = NotificationType.None;
+    }
+    public bool IsActiveNotification()
+    {
+        return notificationPanel.activeSelf;
+    }
+    public void ShowShortPanel(string text)
+    {
+        GameObject shortPanel = Instantiate(shortPanelPrefab); // 생성
+        Transform shortText = shortPanel.transform.Find("ShortText");
+        shortText.GetComponent<Text>().text = text;
+
+        shortPanel.transform.SetParent(canvas.transform, false); // 캔버스에 붙임
+
+    }
+}
+public enum NotificationType
+{
+    None,
+    Call,
+    Shot
 }

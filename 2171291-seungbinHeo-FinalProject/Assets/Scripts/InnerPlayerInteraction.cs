@@ -41,6 +41,11 @@ public class InnerPlayerInteraction : MonoBehaviour
     }
     private void ExitCar()
     {
+        // 상황 버튼을 눌렀고, 모든 Task가 추가된 경우
+        if(GameManager.Instance.GetSituation() == Situation.Accident && TaskManager.Instance.IsAddedAllTasks())
+        {
+            TaskManager.Instance.CompleteTask(3, "상황 파악 완료!");
+        }
         // 차에서 하차 시 설정
         outerPlayer.transform.position = exitPosition.position;
         outerPlayer.SetActive(true);

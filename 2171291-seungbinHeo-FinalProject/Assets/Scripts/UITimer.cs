@@ -7,7 +7,7 @@ public class UITimer : MonoBehaviour
 {
     private bool isTimerStart = false;
     private bool isTimerEnd = false;
-    private float remainTime = 180f;
+    private float remainTime = 100f;
     public Text timerText;
     // Start is called before the first frame update
     void Start()
@@ -34,6 +34,11 @@ public class UITimer : MonoBehaviour
     public void StartTimer()
     {
         isTimerStart = true; // 시작 플래그
+    }
+
+    public void StopTimter()
+    {
+        isTimerStart = false;
     }
     private void UpdateUI()
     {

@@ -10,6 +10,10 @@ TagManager:
   - CarDelete
   - RoadEntry
   - Accident
+  - Shot1
+  - Shot2
+  - Shot3
+  - Shot4
   layers:
   - Default
   - TransparentFX
